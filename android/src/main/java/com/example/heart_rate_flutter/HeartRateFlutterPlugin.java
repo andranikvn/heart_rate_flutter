@@ -14,6 +14,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -48,14 +49,28 @@ public class HeartRateFlutterPlugin implements FlutterPlugin, MethodCallHandler,
       result.success("Android " + android.os.Build.VERSION.RELEASE);
     } else if (call.method.equals("init")) {
       permissionRequest();
-      SensorManager mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
-      @SuppressLint("InlinedApi") Sensor sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
-
-      mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_UI);
+      initSensor();
 
       result.success(true);
     } else {
       result.notImplemented();
+    }
+  }
+
+  private void initSensor() {
+    if(checkSelfPermission(context, Manifest.permission.BODY_SENSORS) != PackageManager.PERMISSION_GRANTED) {
+      Handler handler = new Handler();
+      handler.postDelayed(new Runnable() {
+        @Override
+        public void run() {
+          initSensor();
+        }
+      }, 1000);
+    } else {
+      SensorManager mSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+      @SuppressLint("InlinedApi") Sensor sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
+
+      mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_UI);
     }
   }
 

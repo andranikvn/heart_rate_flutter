@@ -1,7 +1,9 @@
 name: heart_rate_flutter
-description: A new Flutter plugin project.
-version: 0.0.1
-homepage:
+description: Only for android. Get heartbeat from sensor
+authors:
+  - Andranik Vardanyan<Andranikvn@gmail.com>
+version: 0.0.2
+homepage: https://github.com/andranikvn/heart_rate_flutter.git
 
 environment:
   sdk: '>=2.18.1 <3.0.0'
