@@ -1,8 +1,8 @@
 name: heart_rate_flutter
-description: Only for android. Get heartbeat from sensor
+description: Only for android. Get heartbeat from the sensor
 authors:
   - Andranik Vardanyan<Andranikvn@gmail.com>
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/andranikvn/heart_rate_flutter.git
 
 environment:
